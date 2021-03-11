@@ -48,15 +48,15 @@ def main():
         print("Пример: python3 main.py test 100")
         print("Будет создан клиент test, test.conf, ключи и адрес 10.200.200.100")
     else:
-        # try:
-        adrr = sys.argv[2]
-        if 0 <= int(adrr) < 255:
-            new_client(sys.argv[1], adrr)
-        else:
-            print("Неверный адрес, попробуйте ключ -h для помощи")
-        # except Exception as e:
-        #     print(e)
-        #     print("Скорее всего этот адрес или имя уже заняты")
+        try:
+            adrr = sys.argv[2]
+            if 0 <= int(adrr) < 255:
+                new_client(sys.argv[1], adrr)
+            else:
+                print("Неверный адрес, попробуйте ключ -h для помощи")
+        except Exception as e:
+            print(e)
+            print("Скорее всего этот адрес или имя уже заняты")
 
 # MAIN
 if __name__ == "__main__":
