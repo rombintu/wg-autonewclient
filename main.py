@@ -8,12 +8,15 @@ from datetime import date
 # FUNCTIONS
 def create_conf(name, address):
     os.system(f"wg genkey | sudo tee {path_to_conf}{name}_private.key | wg pubkey | sudo tee {path_to_conf}{name}_public.key")
-
     private_key = open(f"{path_to_conf}{name}_private.key", 'r').read()
     pub_key = open(f"{path_to_conf}{name}_public.key", 'r').read()
     with open(f"{path_to_conf}{name}.conf", 'w') as conf_file:
         conf_file.write(temp_conf.format(private_key=private_key, address=address, pub_key=pub_key))
-
+    
+    try:
+        os.system(f"qrencode -t ansiutf8 < {path_to_conf}{name}.conf")
+    except:
+        print("Done.")
 
 def new_client(name, end_address):
     db = sqlite3.connect(path_database)
@@ -45,15 +48,15 @@ def main():
         print("Пример: python3 main.py test 100")
         print("Будет создан клиент test, test.conf, ключи и адрес 10.200.200.100")
     else:
-        try:
-            adrr = sys.argv[2]
-            if 0 <= int(adrr) < 255:
-                new_client(sys.argv[1], adrr)
-            else:
-                print("Неверный адрес, попробуйте ключ -h для помощи")
-        except Exception as e:
-            print(e)
-            print("Скорее всего этот адрес или имя уже заняты")
+        # try:
+        adrr = sys.argv[2]
+        if 0 <= int(adrr) < 255:
+            new_client(sys.argv[1], adrr)
+        else:
+            print("Неверный адрес, попробуйте ключ -h для помощи")
+        # except Exception as e:
+        #     print(e)
+        #     print("Скорее всего этот адрес или имя уже заняты")
 
 # MAIN
 if __name__ == "__main__":

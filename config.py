@@ -1,7 +1,7 @@
 # путь до базы данных (если ее несуществует, то создает новую)
 path_database = "database.db"
 # путь до папки конфигураций клиентов. По умолчанию: /etc/wireguard/clients/
-path_to_conf = '/etc/wireguard/clients/'
+path_to_conf = ''
 # первые три октавы адреса vpn
 part_address = '10.200.200.'
 # шаблон conf файла клиентов
